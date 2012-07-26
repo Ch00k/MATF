@@ -1,6 +1,5 @@
 package com.mantis.pages;
 
-import com.mantis.utils.ConfigProperties;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -32,6 +31,5 @@ public class SignupPage extends Page {
 
     @Override
     public void open() {
-        driver.get(ConfigProperties.getProperty("signup.url"));
     }
 }
