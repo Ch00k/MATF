@@ -8,7 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 
-public class LoginPage extends Page {
+public class LoginPage extends BasePage {
 
     @FindBy(name = "username")
     public WebElement fieldUsername;
@@ -21,6 +21,9 @@ public class LoginPage extends Page {
 
     @FindBy(linkText = "Signup for a new account")
     public WebElement linkSignUp;
+
+    @FindBy(xpath = "//div/font[@color='red'][contains(text(), 'Your account may be disabled or blocked or the username/password you entered is incorrect.')]")
+    public WebElement loginFailFlash;
 
     public LoginPage(WebDriver driver) {
         super(driver);
@@ -38,6 +41,14 @@ public class LoginPage extends Page {
         linkSignUp.click();
 
         return PageFactory.initElements(driver, SignupPage.class);
+    }
+
+    public boolean loginFail() {
+        if (isElementPresent(loginFailFlash)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override

@@ -8,11 +8,12 @@ import org.testng.annotations.AfterTest;
 
 import java.util.concurrent.TimeUnit;
 
-public class BaseTestCase {
+public class BaseTest {
 
     protected static WebDriver driver;
 
     public UserData admin = new UserData("administrator", "test");
+    public UserData unknown = new UserData("unknown", "unknown");
 
     protected WebDriver getWebDriver() {
         if (driver == null) {

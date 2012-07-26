@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class SignupPage extends Page {
+public class SignupPage extends BasePage {
 
     @FindBy(name = "username")
     public WebElement fieldUsername;
@@ -20,13 +20,13 @@ public class SignupPage extends Page {
         super(driver);
     }
 
-    public SignupResult signUp(String username, String email) {
+    public SignupResultPage signUp(String username, String email) {
         //linkSignUp.click();
         type(fieldUsername, username);
         type(fieldEmail, email);
         buttonSignUp.click();
 
-        return PageFactory.initElements(driver, SignupResult.class);
+        return PageFactory.initElements(driver, SignupResultPage.class);
     }
 
     @Override
