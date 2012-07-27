@@ -4,8 +4,8 @@ import com.mantis.pages.HomePage;
 import com.mantis.pages.LoginPage;
 import com.mantis.utils.LoginFailException;
 import org.openqa.selenium.support.PageFactory;
-
 import org.testng.annotations.Test;
+
 import static org.testng.Assert.assertTrue;
 import static org.testng.Assert.fail;
 
@@ -20,21 +20,16 @@ public class LoginTest extends BaseTest {
         loginPage.open();
         homePage = loginPage.loginAs(admin);
         assertTrue(homePage.isLoggedIn());
-        homePage.logout();
-        assertTrue(homePage.isLoggedOut());
     }
 
-    @Test()
+    @Test
     public void loginUnsuccessful() {
         loginPage.open();
         try {
             homePage = loginPage.loginAs(unknown);
-            fail();
+            fail("Logged in successfully");
         } catch (LoginFailException e) {
 
         }
     }
-
-
-
 }

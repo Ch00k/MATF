@@ -20,11 +20,12 @@ public class BaseTest {
             driver = new FirefoxDriver();
             driver.manage().timeouts().implicitlyWait(Long.parseLong(ConfigProperties.getProperty("imp.wait")), TimeUnit.SECONDS);
         }
+
         return driver;
     }
 
     @AfterTest
-    public void tearDown() throws Exception {
+    public void tearDown() {
         driver.quit();
     }
 }
