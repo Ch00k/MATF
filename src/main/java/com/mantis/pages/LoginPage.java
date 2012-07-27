@@ -2,6 +2,7 @@ package com.mantis.pages;
 
 import com.mantis.data.UserData;
 import com.mantis.utils.ConfigProperties;
+import com.mantis.utils.LoginFailException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -29,26 +30,21 @@ public class LoginPage extends BasePage {
         super(driver);
     }
 
-    public HomePage loginAs(UserData admin) {
-        type(fieldUsername, admin.name);
-        type(fieldPassword, admin.password);
+    public HomePage loginAs(UserData account) throws LoginFailException {
+        type(fieldUsername, account.name);
+        type(fieldPassword, account.password);
         buttonLogin.click();
-
-        return PageFactory.initElements(driver, HomePage.class);
+        if (isElementPresent(loginFailFlash)) {
+            throw new LoginFailException("Login failed");
+        } else {
+            return PageFactory.initElements(driver, HomePage.class);
+        }
     }
 
     public SignupPage navToSignup() {
         linkSignUp.click();
 
         return PageFactory.initElements(driver, SignupPage.class);
-    }
-
-    public boolean loginFail() {
-        if (isElementPresent(loginFailFlash)) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
     @Override
