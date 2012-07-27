@@ -5,11 +5,10 @@ import com.mantis.pages.SignupPage;
 import com.mantis.pages.SignupResultPage;
 import com.mantis.utils.SignupEmailInvalidException;
 import com.mantis.utils.SignupLoginInvalidException;
+import org.junit.Test;
 import org.openqa.selenium.support.PageFactory;
-import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertTrue;
-import static org.testng.Assert.fail;
 
 
 public class SignupTest extends BaseTest {
@@ -21,35 +20,21 @@ public class SignupTest extends BaseTest {
     public void signupSuccessful() throws SignupLoginInvalidException, SignupEmailInvalidException{
         loginPage.open();
         signupPage = loginPage.navToSignup();
-        signupResult = signupPage.signUp("mud3", "mud3@mud.net");
+        signupResult = signupPage.signUp("mud8", "mud8@mud.net");
         assertTrue(signupResult.isSignedUp());
     }
 
-    @Test
-    public void loginInvalid() {
+    @Test(expected = SignupLoginInvalidException.class)
+    public void loginInvalid() throws SignupLoginInvalidException, SignupEmailInvalidException {
         loginPage.open();
         signupPage = loginPage.navToSignup();
-        try {
-            signupResult = signupPage.signUp("", "mud@mud.net");
-            fail("Signed up successfully");
-        } catch (SignupLoginInvalidException e) {
-
-        } catch (SignupEmailInvalidException e) {
-            fail("Login valid");
-        }
+        signupResult = signupPage.signUp("", "mud@mud.net");
     }
 
-    @Test
-    public void emailInvalid() {
+    @Test(expected = SignupEmailInvalidException.class)
+    public void emailInvalid() throws SignupLoginInvalidException, SignupEmailInvalidException {
         loginPage.open();
         signupPage = loginPage.navToSignup();
-        try {
-            signupResult = signupPage.signUp("login", "mud@mm.mm");
-            fail("Signed up successfully");
-        } catch (SignupEmailInvalidException e) {
-
-        } catch (SignupLoginInvalidException e) {
-            fail("Email valid");
-        }
+        signupResult = signupPage.signUp("login1", "");
     }
 }

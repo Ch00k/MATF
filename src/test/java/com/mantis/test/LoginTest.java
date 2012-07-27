@@ -3,11 +3,10 @@ package com.mantis.test;
 import com.mantis.pages.HomePage;
 import com.mantis.pages.LoginPage;
 import com.mantis.utils.LoginFailException;
+import org.junit.Test;
 import org.openqa.selenium.support.PageFactory;
-import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertTrue;
-import static org.testng.Assert.fail;
 
 
 public class LoginTest extends BaseTest {
@@ -22,14 +21,9 @@ public class LoginTest extends BaseTest {
         assertTrue(homePage.isLoggedIn());
     }
 
-    @Test
-    public void loginUnsuccessful() {
+    @Test(expected = LoginFailException.class)
+    public void loginUnsuccessful() throws LoginFailException {
         loginPage.open();
-        try {
-            homePage = loginPage.loginAs(unknown);
-            fail("Logged in successfully");
-        } catch (LoginFailException e) {
-
-        }
+        homePage = loginPage.loginAs(unknown);
     }
 }

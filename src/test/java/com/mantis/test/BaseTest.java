@@ -1,16 +1,13 @@
 package com.mantis.test;
 
 import com.mantis.data.UserData;
-import com.mantis.utils.ConfigProperties;
+import org.junit.After;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.testng.annotations.AfterTest;
-
-import java.util.concurrent.TimeUnit;
 
 public class BaseTest {
 
-    protected static WebDriver driver;
+    protected WebDriver driver;
 
     public UserData admin = new UserData("administrator", "test");
     public UserData unknown = new UserData("unknown", "unknown");
@@ -18,13 +15,13 @@ public class BaseTest {
     protected WebDriver getWebDriver() {
         if (driver == null) {
             driver = new FirefoxDriver();
-            driver.manage().timeouts().implicitlyWait(Long.parseLong(ConfigProperties.getProperty("imp.wait")), TimeUnit.SECONDS);
+            //driver.manage().timeouts().implicitlyWait(Long.parseLong(ConfigProperties.getProperty("imp.wait")), TimeUnit.SECONDS);
         }
 
         return driver;
     }
 
-    @AfterTest
+    @After
     public void tearDown() {
         driver.quit();
     }
